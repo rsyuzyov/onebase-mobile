@@ -1,0 +1,15 @@
+name: Склад
+title: Склад ↔ Центральная база
+conflict: by_time
+repost: true
+
+content:
+  - Справочник.Номенклатура
+  - Справочник.Поставщик
+  - Справочник.Склад
+  - Документ.Поступление
+  - Документ.Реализация
+
+nodes:
+  - { code: cb,    name: Центральная база, priority: 10, url: "${env:OB_HUB_URL}" }
+  - { code: tsd01, name: ТСД 01,           priority: 1,  url: "${env:OB_TSD01_URL}" }

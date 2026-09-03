@@ -1,0 +1,6 @@
+name: Склад
+fields:
+  - name: Наименование
+    type: string
+  - name: Адрес
+    type: string

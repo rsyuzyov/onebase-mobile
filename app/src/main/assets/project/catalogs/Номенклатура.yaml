@@ -1,0 +1,11 @@
+name: Номенклатура
+hierarchical: true
+fields:
+  - name: Наименование
+    type: string
+  - name: Артикул
+    type: string
+  - name: ЕдиницаИзмерения
+    type: string
+  - name: ЦенаПродажи
+    type: number

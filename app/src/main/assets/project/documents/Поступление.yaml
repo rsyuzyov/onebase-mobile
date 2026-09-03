@@ -1,0 +1,22 @@
+name: Поступление
+posting: true
+fields:
+  - name: Дата
+    type: date
+  - name: Поставщик
+    type: reference:Поставщик
+  - name: Склад
+    type: reference:Склад
+  - name: Сумма
+    type: number
+tableparts:
+  - name: Товары
+    fields:
+      - name: Номенклатура
+        type: reference:Номенклатура
+      - name: Количество
+        type: number
+      - name: Цена
+        type: number
+      - name: Сумма
+        type: number

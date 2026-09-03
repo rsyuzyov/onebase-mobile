@@ -1,0 +1,11 @@
+name: ОстаткиТоваров
+dimensions:
+  - name: Номенклатура
+    type: reference:Номенклатура
+  - name: Склад
+    type: reference:Склад
+resources:
+  - name: Количество
+    type: number
+  - name: Сумма
+    type: number

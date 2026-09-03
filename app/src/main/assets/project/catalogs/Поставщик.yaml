@@ -1,0 +1,8 @@
+name: Поставщик
+fields:
+  - name: Наименование
+    type: string
+  - name: ИНН
+    type: string
+  - name: Телефон
+    type: string
