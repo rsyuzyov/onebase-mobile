@@ -24,6 +24,13 @@ android {
         }
     }
 
+    // BuildConfig.DEBUG отличает отладочную сборку от релизной: отладка WebView
+    // включается только в debug, иначе к базе на телефоне можно подключиться
+    // отладчиком с любого компьютера, к которому подключён телефон.
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
         debug {
             isMinifyEnabled = false
@@ -49,4 +56,5 @@ kotlin {
 dependencies {
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
+    testImplementation("junit:junit:4.13.2")
 }

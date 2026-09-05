@@ -2,4 +2,7 @@
 <resources>
     <string name="app_name">Склад onebase</string>
     <string name="starting">Запускаю платформу…</string>
+    <string name="download_started">Скачиваю %1$s…</string>
+    <string name="download_done">Сохранено: %1$s</string>
+    <string name="download_failed">Не удалось скачать: %1$s</string>
 </resources>
