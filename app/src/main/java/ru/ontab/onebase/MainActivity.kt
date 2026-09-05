@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         web.settings.setSupportMultipleWindows(true)
         web.settings.javaScriptCanOpenWindowsAutomatically = true
         web.webViewClient = OneBaseWebViewClient()
-        web.webChromeClient = OneBaseChromeClient(this, ::openFileChooser, web::loadUrl)
+        web.webChromeClient = OneBaseChromeClient(this, ::openFileChooser, ::openInPlace)
         web.setDownloadListener { url, _, contentDisposition, mimeType, _ ->
             Downloads.enqueue(this, url, contentDisposition, mimeType)
         }
@@ -120,6 +120,15 @@ class MainActivity : AppCompatActivity() {
         return runCatching { filePicker.launch(params.createIntent()) }
             .onFailure { pendingFiles = null }
             .isSuccess
+    }
+
+    /**
+     * Грузит адрес, запрошенный через window.open, отдельным сообщением очереди —
+     * вне стека самого обработчика. Так переход становится обычной навигацией
+     * и не рискует попасть в одну запись истории с текущей страницей.
+     */
+    private fun openInPlace(url: String) {
+        web.post { web.loadUrl(url) }
     }
 
     private fun restartWaiting() {
@@ -176,8 +185,11 @@ class MainActivity : AppCompatActivity() {
      */
     private inner class BackHandler : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            if (web.visibility == View.VISIBLE && web.canGoBack()) {
-                web.goBack()
+            if (web.visibility == View.VISIBLE && web.canGoBackOrForward(-1)) {
+                // Ровно на одну запись, а не goBack(): тот умеет пропускать записи,
+                // которые WebView счёл редиректами, и шаг назад тогда получается
+                // длиннее ожидаемого.
+                web.goBackOrForward(-1)
                 return
             }
             val now = SystemClock.elapsedRealtime()
