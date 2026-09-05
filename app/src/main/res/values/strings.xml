@@ -2,6 +2,11 @@
 <resources>
     <string name="app_name">Склад onebase</string>
     <string name="starting">Запускаю платформу…</string>
+    <string name="starting_slow">Первый запуск дольше обычного: разворачиваются база и конфигурация.</string>
+    <string name="start_failed">Платформа не отвечает.</string>
+    <string name="retry">Повторить</string>
+    <string name="load_failed">Не удалось открыть интерфейс: %1$s</string>
+    <string name="back_to_exit">Нажмите «Назад» ещё раз, чтобы закрыть приложение</string>
     <string name="download_started">Скачиваю %1$s…</string>
     <string name="download_done">Сохранено: %1$s</string>
     <string name="download_failed">Не удалось скачать: %1$s</string>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Цвет боковой панели платформы (slate-800): системная полоса статуса
+         сливается с интерфейсом вместо чёрной рамки поверх него. -->
+    <color name="ob_chrome">#1e293b</color>
+    <color name="ob_background">#f8fafc</color>
+    <color name="ob_text">#1e293b</color>
+    <color name="ob_text_muted">#64748b</color>
+    <color name="ob_accent">#3b82f6</color>
+</resources>

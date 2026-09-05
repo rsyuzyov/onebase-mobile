@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Своя тема вместо Theme.AppCompat.NoActionBar. Даёт два эффекта:
+        статус-бар окрашен в цвет интерфейса платформы, а окно приложения
+        стартует с фоном интерфейса — без белой вспышки перед загрузкой.
+    -->
+    <style name="Theme.OneBase" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/ob_chrome</item>
+        <item name="android:navigationBarColor">@color/ob_chrome</item>
+        <item name="android:windowBackground">@color/ob_background</item>
+        <item name="colorAccent">@color/ob_accent</item>
+    </style>
+</resources>
