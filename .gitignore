@@ -7,11 +7,14 @@ local.properties
 *.aab
 *.keystore
 
-# Бинари платформы (собираются, в git не едут)
+# Бинари платформы (собираются, в git не едут).
+# Пути обязательно от корня: голое «onebase» — это шаблон имени, и он съедал
+# каталог пакета app/src/main/java/ru/ontab/onebase/ вместе со всем кодом
+# приложения. Исходники молча не попадали в коммиты.
 /app/src/main/jniLibs/
 /bin/
-onebase
-onebase.exe
+/onebase
+/onebase.exe
 
 # Прочее
 .idea/
