@@ -100,6 +100,38 @@ class MainActivity : AppCompatActivity() {
         if (!restored) {
             restartWaiting()
         }
+        offerCrashReport()
+    }
+
+    /**
+     * Показывает предложение отправить отчёт, если прошлый сеанс закончился падением.
+     *
+     * Спрашиваем при следующем запуске, а не в момент сбоя: в момент сбоя процесс
+     * уже умирает и показать что-либо нечем. Отправка — обычным «поделиться»:
+     * сервера для приёма отчётов у нас пока нет, а почта и мессенджер у кладовщика
+     * есть всегда.
+     */
+    private fun offerCrashReport() {
+        val crash = Diagnostics.pendingCrashes(this).firstOrNull() ?: return
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle(R.string.crash_title)
+            .setMessage(R.string.crash_message)
+            .setPositiveButton(R.string.crash_send) { _, _ ->
+                val report = Diagnostics.report(this, crash)
+                Diagnostics.clearCrashes(this)
+                startActivity(
+                    Intent.createChooser(
+                        Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.crash_subject))
+                            putExtra(Intent.EXTRA_TEXT, report)
+                        },
+                        getString(R.string.crash_send),
+                    ),
+                )
+            }
+            .setNegativeButton(R.string.crash_skip) { _, _ -> Diagnostics.clearCrashes(this) }
+            .show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

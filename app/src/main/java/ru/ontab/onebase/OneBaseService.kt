@@ -65,6 +65,7 @@ class OneBaseService : Service() {
                 prepareAndRun()
             } catch (e: Exception) {
                 Log.e(TAG, "платформа не запустилась", e)
+                Diagnostics.note(this, "платформа не запустилась: ${e.javaClass.simpleName}: ${e.message}")
             }
         }.also { it.start() }
 
@@ -116,10 +117,15 @@ class OneBaseService : Service() {
                     val url = line.removePrefix(URL_PREFIX).trim()
                     launcherUrl.set(url)
                     Log.i(TAG, "лаунчер готов: $url")
+                    Diagnostics.note(this, "лаунчер готов: $url")
                 }
             }
         }
-        Log.w(TAG, "процесс платформы завершился, код ${p.waitFor()}")
+        val code = p.waitFor()
+        Log.w(TAG, "процесс платформы завершился, код $code")
+        // Завершение платформы само по себе не роняет приложение, и в интерфейсе
+        // выглядит как «всё перестало открываться» — без записи причину не найти.
+        Diagnostics.note(this, "процесс платформы завершился, код $code")
     }
 
     /** Однократный запуск команды платформы (migrate, ibases) с ожиданием результата. */

@@ -10,4 +10,10 @@
     <string name="download_started">Скачиваю %1$s…</string>
     <string name="download_done">Сохранено: %1$s</string>
     <string name="download_failed">Не удалось скачать: %1$s</string>
+
+    <string name="crash_title">Прошлый сеанс завершился сбоем</string>
+    <string name="crash_message">Приложение аварийно закрылось. Отчёт поможет починить причину — в нём только техническая информация: версия, модель телефона и место ошибки.</string>
+    <string name="crash_send">Отправить отчёт</string>
+    <string name="crash_skip">Не отправлять</string>
+    <string name="crash_subject">Склад onebase: отчёт о сбое</string>
 </resources>
