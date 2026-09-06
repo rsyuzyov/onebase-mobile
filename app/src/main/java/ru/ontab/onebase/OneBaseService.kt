@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
@@ -33,6 +34,20 @@ class OneBaseService : Service() {
 
         /** Адрес лаунчера; пусто, пока платформа не напечатала строку. */
         val launcherUrl = AtomicReference<String?>(null)
+
+        /**
+         * Подставной адрес платформы для тестов обёртки.
+         *
+         * Когда он задан, сервис не запускает бинарь и берёт адрес отсюда. Без этой
+         * ветки тест не изолировать: на устройстве, где платформа поднимается, она
+         * перезаписывает [launcherUrl] своим адресом через несколько секунд после
+         * старта — подставленный тестом адрес затирался, и проверки зависали в
+         * ожидании страницы, которой нет. На x86_64-эмуляторе того же не
+         * происходило только потому, что платформа там падает на seccomp.
+         */
+        @Volatile
+        @VisibleForTesting
+        var launcherOverride: String? = null
     }
 
     private var process: Process? = null
@@ -57,6 +72,11 @@ class OneBaseService : Service() {
     }
 
     private fun prepareAndRun() {
+        launcherOverride?.let { url ->
+            Log.i(TAG, "платформа не запускается: адрес подставлен ($url)")
+            launcherUrl.set(url)
+            return
+        }
         val binary = File(applicationInfo.nativeLibraryDir, "libonebase.so")
         val home = filesDir
         val project = File(home, "project")

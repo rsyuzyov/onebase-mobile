@@ -22,6 +22,7 @@ class LoadFailureTest {
     @After
     fun tearDown() {
         scenario?.close()
+        OneBaseService.launcherOverride = null
         OneBaseService.launcherUrl.set(null)
     }
 
@@ -29,6 +30,7 @@ class LoadFailureTest {
     fun unreachableAddressShowsRetryScreen() {
         // Порт закрыт: свободный адрес на loopback без слушателя даёт ту же ошибку
         // навигации, что и не поднявшаяся платформа.
+        OneBaseService.launcherOverride = "http://127.0.0.1:49999/launcher"
         OneBaseService.launcherUrl.set("http://127.0.0.1:49999/launcher")
         val launched = ActivityScenario.launch(MainActivity::class.java).also { scenario = it }
 

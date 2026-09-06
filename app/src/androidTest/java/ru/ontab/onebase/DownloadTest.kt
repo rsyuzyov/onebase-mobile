@@ -33,6 +33,9 @@ class DownloadTest {
     fun setUp() {
         removeDownloaded()
         platform = FakePlatform().also { it.start() }
+        // Обе точки: override не даёт сервису поднять платформу и перетереть адрес,
+        // launcherUrl — то, что экран читает сразу, не дожидаясь сервиса.
+        OneBaseService.launcherOverride = platform.launcherUrl
         OneBaseService.launcherUrl.set(platform.launcherUrl)
         scenario = ActivityScenario.launch(MainActivity::class.java)
         activity = WrapperTestSupport.activityOf(scenario)
@@ -46,6 +49,7 @@ class DownloadTest {
         WrapperTestSupport.detach(activity)
         scenario.close()
         platform.stop()
+        OneBaseService.launcherOverride = null
         OneBaseService.launcherUrl.set(null)
         removeDownloaded()
     }
