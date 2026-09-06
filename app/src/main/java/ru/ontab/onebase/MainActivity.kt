@@ -208,6 +208,9 @@ class MainActivity : AppCompatActivity() {
         loaded = true
         splash.visibility = View.GONE
         web.visibility = View.VISIBLE
+        // Без фокуса на WebView события клавиш не идут по цепочке «до метода
+        // ввода», и перехват штрихкодов в ScannerFrame не срабатывает вовсе.
+        web.requestFocus()
     }
 
     /**

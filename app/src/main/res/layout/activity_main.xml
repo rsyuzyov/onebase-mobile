@@ -4,7 +4,7 @@
     виден осмысленный экран, а не пустое поле. Оба состояния — в разметке,
     чтобы переключение было мгновенным и не пересобирало вид.
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ru.ontab.onebase.ScannerFrame xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ob_background">
@@ -57,4 +57,4 @@
             android:text="@string/retry"
             android:visibility="gone" />
     </LinearLayout>
-</FrameLayout>
+</ru.ontab.onebase.ScannerFrame>
